@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>This is edit page</h1>
-    <form th:method="PUT" th:action="@{/edit}" th:object="${user}">
+    <form th:method="PUT" th:action="@{/admin/edit}" th:object="${user}">
         <label for="id">Id</label>
         <input type="hidden" th:field="*{id}" id="id">
         <label for="name">name</label>

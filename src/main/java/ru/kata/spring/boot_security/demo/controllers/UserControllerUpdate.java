@@ -17,14 +17,6 @@ public class UserControllerUpdate {
     @Autowired
     private UserService userService;
 
-//    @GetMapping("/")
-//    public String getAllUsers(Model model) {
-//        List<User> users = userService.getAllUsers();
-//        model.addAttribute("users", users);
-//
-//        return "getAllUsers";
-//    }
-
     @GetMapping("/admin")
     public String getAllUsers(Model model) {
         List<User> users = userService.getAllUsers();
@@ -33,18 +25,18 @@ public class UserControllerUpdate {
         return "getAllUsers";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/admin/add")
     public String newUser(@ModelAttribute("user") User user) {
         return "addUser";
     }
 
-    @PostMapping("/")
+    @PostMapping("/admin/")
     public String addUser(@ModelAttribute("user") User user) {
         userService.addUser(user);
-        return "redirect:/";
+        return "redirect:/admin/";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/admin/edit/{id}")
     public String editPage(@PathVariable("id") int id,
                            Model model) {
         User user = userService.getUser(id);
@@ -52,14 +44,15 @@ public class UserControllerUpdate {
         return "editPage";
     }
 
-    @PutMapping("/edit")
+    @PutMapping("/admin/edit")
     public String editUser(@ModelAttribute ("user") User user) {
         userService.addUser(user);
-        return "redirect:/";
+        return "redirect:/admin";
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/admin/delete/{id}")
     public String deleteUser(@PathVariable("id") int id) {
         userService.deleteUser(id);
-        return "redirect:/";
+        return "redirect:/admin";
+
     }
 }

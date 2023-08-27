@@ -19,12 +19,12 @@
                     <td th:text="${user.getEmail()}" />
 
                     <td>
-                        <a th:href="@{/edit/{id}(id=${user.getId()})}">Update</a>
+                        <a th:href="@{/admin/edit/{id}(id=${user.getId()})}">Update</a>
 <!--                        <a th:href="@{/delete/{id}(id=${user.getId()})}">Delete</a>-->
                     </td>
 
                     <td>
-                        <form th:method="DELETE" th:action="@{/delete/{id}(id=${user.getId()})}">
+                        <form th:method="DELETE" th:action="@{/admin/delete/{id}(id=${user.getId()})}">
                             <input type="submit" value="Delete">
                         </form>
 
@@ -35,7 +35,7 @@
 
         <br><br>
 
-        <a href="/add">Add user</a>
+        <a href="/admin/add">Add user</a>
 
     </body>
 </html>
