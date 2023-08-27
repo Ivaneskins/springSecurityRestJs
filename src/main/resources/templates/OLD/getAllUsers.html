@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+    <body>
+        <h1>Get all Users</h1>
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+            <div th:each="user : ${users}">
+                <tr>
+                    <td th:text="${user.getName()}" />
+                    <td th:text="${user.getEmail()}" />
+
+                    <td>
+                        <a th:href="@{/edit/{id}(id=${user.getId()})}">Update</a>
+<!--                        <a th:href="@{/delete/{id}(id=${user.getId()})}">Delete</a>-->
+                    </td>
+
+                    <td>
+                        <form th:method="DELETE" th:action="@{/delete/{id}(id=${user.getId()})}">
+                            <input type="submit" value="Delete">
+                        </form>
+
+                    </td>
+                </tr>
+            </div>
+        </table>
+
+        <br><br>
+
+        <a href="/add">Add user</a>
+
+    </body>
+</html>
