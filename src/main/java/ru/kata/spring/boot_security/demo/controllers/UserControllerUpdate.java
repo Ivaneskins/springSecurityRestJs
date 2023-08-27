@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -53,6 +54,15 @@ public class UserControllerUpdate {
     public String deleteUser(@PathVariable("id") int id) {
         userService.deleteUser(id);
         return "redirect:/admin";
+    }
+
+    @GetMapping("/user")
+    public String userInfo(Principal principal, Model model) {
+        User user = userService.getUserByName(principal.getName());
+        System.out.println(user.getName());
+        model.addAttribute("user", user);
+
+        return "userPage";
 
     }
 }
