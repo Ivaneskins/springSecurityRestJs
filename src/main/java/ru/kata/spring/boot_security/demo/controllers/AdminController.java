@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;;
+import ru.kata.spring.boot_security.demo.entities.Role;
 import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -17,9 +19,26 @@ public class AdminController {
     private UserService userService;
 
     @GetMapping("/")
-    public String getAllUsers(Model model) {
+    public String getAllUsers(Model model, Principal principal) {
         List<User> users = userService.getAllUsers();
+        StringBuilder sb = new StringBuilder();
+        User user = userService.getUser(1);
+        if (principal != null) {
+            user = userService.getUserByName(principal.getName());
+
+        }
+        //Получение ролей в виде строки
+        for (Role role : user.getRoles()) {
+            sb.append(role.getName());
+            sb.append(" ");
+        }
+
+        model.addAttribute("userByPrincipalName", user);
+
         model.addAttribute("users", users);
+
+        model.addAttribute("roles", sb.toString());
+
         return "getAllUsers";
     }
 

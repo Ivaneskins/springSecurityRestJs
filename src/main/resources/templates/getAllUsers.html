@@ -8,41 +8,93 @@
 
 </head>
     <body>
-        <h1>Get all Users</h1>
-
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Action</th>
-            </tr>
-            <div th:each="user : ${users}">
-                <tr>
-                    <td th:text="${user.getName()}" />
-                    <td th:text="${user.getEmail()}" />
-
-                    <td>
-                        <a th:href="@{/admin/edit/{id}(id=${user.getId()})}">Update</a>
-                    </td>
-
-                    <td>
-                        <form th:method="DELETE" th:action="@{/admin/delete/{id}(id=${user.getId()})}">
-                            <input type="submit" value="Delete">
-                        </form>
-
-                    </td>
-                </tr>
+<!--    header-->
+        <div class="container-fluid p-3 mb-2 bg-dark text-white">
+            <div class="d-flex bd-highlight ">
+                <div class="p-2 flex-grow-1 bd-highlight" th:text="${userByPrincipalName.getEmail()} + ' with roles: ' + ${roles}">
+                    Одна из 2x колонок
+                </div>
+                <div class="p-2 bd-highlight">
+                    <a class="text-secondary" th:href="@{/logout}">Logout</a>
+                </div>
             </div>
-        </table>
-        <br />
+        </div>
 
-        <a href="/admin/add">Add user</a>
-        <br />
-        <br />
-        <br />
-        <a th:href="@{/logout}">LOGOUT</a>
+<!--    main-->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2">
+                    <nav class="nav flex-column nav-pills">
+                        <a class="nav-link active " href="#">Admin</a>
+                        <a class="nav-link" href="#">User</a>
+                    </nav>
+                </div>
+
+
+                <div class="col-10 bg-light">
+                    <h2> Admin panel </h2> <br />
+
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Users table</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">New User</a>
+                        </li>
+                    </ul>
+                    <br/>
+
+                    <h6> &nbsp;&nbsp;&nbsp;&nbsp;All users </h6>
+
+                    <table class="table table-striped bg-white">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <div th:each="user : ${users}">
+                            <tr>
+                                <td th:text="${user.id}" />
+                                <td th:text="${user.getName()}" />
+                                <td th:text="${user.getLastName()}" />
+                                <td th:text="${user.getAge()}" />
+                                <td th:text="${user.getEmail()}" />
+                                <td th:text="${user.getRoles()}" />
+                                <td>
+                                    <a class="btn btn-info" th:href="@{/admin/edit/{id}(id=${user.getId()})}">Edit</a>
+                                </td>
+                                <td>
+                                    <form th:method="DELETE" th:action="@{/admin/delete/{id}(id=${user.getId()})}">
+                                        <input type="submit" class="btn btn-danger" value="Delete">
+                                    </form>
+                                </td>
+                            </tr>
+                        </div>
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
 
 
 
+
+
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
 </html>

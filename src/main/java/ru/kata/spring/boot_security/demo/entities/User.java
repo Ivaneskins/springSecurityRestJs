@@ -1,7 +1,11 @@
 package ru.kata.spring.boot_security.demo.entities;
 
+import net.bytebuddy.implementation.bind.annotation.Default;
+
 import javax.persistence.*;
 import java.util.Collection;
+
+
 
 @Entity
 @Table(name = "users")
@@ -14,6 +18,12 @@ public class User {
 
     @Column(name = "username")
     private String name;
+
+    @Column(name = "age")
+    private int age;
+
+    @Column(name = "lastname")
+    private String lastName;
 
     @Column(name = "email")
     private String email;
@@ -34,6 +44,22 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public int getId() {
