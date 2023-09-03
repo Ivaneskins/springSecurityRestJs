@@ -110,4 +110,10 @@ public class User {
                 ", email='" + email + '\'' +
                 '}';
     }
+
+    public String rolesToString() {
+        StringBuilder sb = new StringBuilder();
+        roles.stream().map(Role::getName).forEach(role -> sb.append(role.replace("ROLE_", "")).append(" "));
+        return sb.toString();
+    }
 }
