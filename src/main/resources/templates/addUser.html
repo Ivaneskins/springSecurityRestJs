@@ -30,7 +30,6 @@
             </nav>
         </div>
 
-
         <div class="col-10 bg-light">
             <h2> Admin panel </h2> <br />
 
@@ -77,14 +76,6 @@
                                 <input type="password" class="form-control" th:field="*{password}" id="formGroupExampleInput5" placeholder="Password">
                             </div>
 
-<!--                            <div class="form-group text-center">-->
-<!--                                <label class="font-weight-bold" for="formGroupExampleInput6">Role</label><br/>-->
-<!--                                <select name="role" class="form-select w-100 p-2" multiple aria-label="multiple select example" id="formGroupExampleInput6">-->
-<!--                                    <option value="1">Admin</option>-->
-<!--                                    <option value="2">User</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
-
                             <div class="form-group text-center">
                                 <label class="font-weight-bold" for="Role">Role</label>
                                 <select multiple class="form-control" id="Role" name="roles" size="2">
@@ -92,7 +83,6 @@
                                             th:text="${role.getName().replaceAll('ROLE_', '')}">
                                     </option>
                                 </select>
-
                             </div>
 
                             <div class="form-group row">
@@ -106,19 +96,9 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
         </div>
     </div>
 </div>
-
-
-
-
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -126,29 +106,3 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Title</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--    <h1>Add user</h1>-->
-<!--    <form th:method="POST" th:action="@{/admin/}" th:object="${user}">-->
-<!--        <label for="name">name</label>-->
-<!--        <input type="text" th:field="*{name}" id="name">-->
-<!--        <br>-->
-<!--        <label for="email">email</label>-->
-<!--        <input type="text" th:field="*{email}" id="email">-->
-<!--        <br>-->
-<!--        <input type="submit" value="Add User">-->
-<!--    </form>-->
-
-<!--    <br />-->
-<!--    <a th:href="@{/logout}">LOGOUT</a>-->
-
-<!--</body>-->
-<!--</html>-->

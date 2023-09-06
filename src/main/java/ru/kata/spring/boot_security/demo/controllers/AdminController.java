@@ -46,8 +46,6 @@ public class AdminController {
 
     @PatchMapping("/edit/{id}")
     public String editUser(@ModelAttribute("user") User user) {
-        System.out.println("user id = " + user.getId());
-        System.out.println("user pass = " + user.getPassword());
         userService.update(user);
         return "redirect:/admin/";
     }
