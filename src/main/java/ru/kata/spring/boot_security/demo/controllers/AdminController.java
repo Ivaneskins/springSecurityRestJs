@@ -10,8 +10,6 @@ import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -25,62 +23,44 @@ public class AdminController {
 
     @GetMapping("/")
     public String getAllUsers(Model model, Principal principal) {
-        List<User> users = userService.getAllUsers();
-        User user1 = userService.getUserByName(principal.getName());
-
-        model.addAttribute("userByPrincipalName", user1);
-        model.addAttribute("users", users);
-        model.addAttribute("roles", roleService.getRoles());
-
+        model.addAttribute("userByPrincipalName", userService.getUserByUsername(principal.getName()));
+        model.addAttribute("users", userService.findAllUser());
+        model.addAttribute("roles", roleService.findAll());
         return "getAllUsers";
     }
 
     @GetMapping("/add")
     public String newUser(@ModelAttribute("user") User user, Principal principal, Model model) {
-
-        StringBuilder sb = new StringBuilder();
-        User userFromBd = userService.getUserByName(principal.getName());
-        //Получение ролей в виде строки
-        for (Role role : userFromBd.getRoles()) {
-            sb.append(role.getName());
-            sb.append(" ");
-        }
-
-        model.addAttribute("userByPrincipalName", userFromBd);
-
-        model.addAttribute("roles", sb.toString());
+        User userByName = userService.getUserByUsername(principal.getName());
+        List<Role> roles = roleService.findAll();
+        model.addAttribute("userByPrincipalName", userByName);
+        model.addAttribute("roles", roles);
         return "addUser";
     }
 
     @PostMapping("/")
-    public String addUser(@ModelAttribute("user") User user,
-                          @RequestParam("role") int role) {
-        System.out.println(role);
-        userService.addUser(user);
-
-        User findNewUserForId = userService.getUserByName(user.getName());
-        roleService.addRole(role, findNewUserForId.getId());
-
+    public String addUser(@ModelAttribute("user") User user) {
+        userService.add(user);
         return "redirect:/admin/";
     }
 
-    @GetMapping("/edit/{id}")
-    public String editPage(@PathVariable("id") int id,
-                           Model model) {
-        User user = userService.getUser(id);
-        model.addAttribute("user", user);
-        return "editPage";
-    }
-
-    @PutMapping("/edit")
-    public String editUser(@ModelAttribute ("user") User user) {
-        System.out.println(user.getName());
-//        userService.addUser(user);
+    @PatchMapping("/edit/{id}")
+    public String editUser(@ModelAttribute("user") User user) {
+        System.out.println("user id = " + user.getId());
+        System.out.println("user pass = " + user.getPassword());
+        userService.update(user);
         return "redirect:/admin/";
     }
     @DeleteMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") int id) {
-        userService.deleteUser(id);
+    public String deleteUser(@PathVariable("id") Long id) {
+        userService.deleteById(id);
         return "redirect:/admin/";
+    }
+
+    @GetMapping("/admin-info")
+    public String getAdminInfoPage(Principal principal, Model model) {
+        User userByPrincipalName = userService.getUserByUsername(principal.getName());
+        model.addAttribute("userByPrincipalName", userByPrincipalName);
+        return "adminPage";
     }
 }

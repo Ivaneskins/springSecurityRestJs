@@ -1,49 +1,69 @@
 package ru.kata.spring.boot_security.demo.entities;
 
-import net.bytebuddy.implementation.bind.annotation.Default;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import java.util.Collection;
-
-
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
-
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
-
+    private Long id;
     @Column(name = "username")
-    private String name;
-
+    @NotEmpty
+    private String username;
+    @Column(name = "lastname")
+    @NotEmpty
+    @Size(min = 2, max = 20)
+    private String lastname;
+    @Column(name = "password")
+    @NotEmpty
+    private String password;
+    @Column(name = "email")
+    @NotEmpty
+    @Email
+    private String email;
     @Column(name = "age")
+    @Min(value = 0)
     private int age;
 
-    @Column(name = "lastname")
-    private String lastName;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "password")
-    private String password;
-
     @ManyToMany
+    @Fetch(FetchMode.JOIN)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Collection<Role> roles;
+    private Set<Role> roles;
 
     public User() {
     }
 
-    public User(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
+    public User(String username, String password, String email, Set<Role> roles, String lastname, int age) {
+        this.username = username;
+        this.lastname = lastname;
         this.password = password;
+        this.email = email;
+        this.roles = roles;
+        this.age = age;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public int getAge() {
@@ -54,36 +74,46 @@ public class User {
         this.age = age;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public String getEmail() {
-        return email;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
     }
 
     public String getPassword() {
@@ -94,26 +124,39 @@ public class User {
         this.password = password;
     }
 
-    public Collection<Role> getRoles() {
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(Set<Role> roles) {
+        System.out.println("Сработал сет ролей");
         this.roles = roles;
+    }
+
+    public String toStringRoles() {
+        StringBuilder x = new StringBuilder();
+        roles.stream().map(Role::getName).forEach(s -> x.append(s).append(" "));
+        return x.toString();
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", age=" + age +
+                ", roles=" + roles +
                 '}';
-    }
-
-    public String rolesToString() {
-        StringBuilder sb = new StringBuilder();
-        roles.stream().map(Role::getName).forEach(role -> sb.append(role.replace("ROLE_", "")).append(" "));
-        return sb.toString();
     }
 }

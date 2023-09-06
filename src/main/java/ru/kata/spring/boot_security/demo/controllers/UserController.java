@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.services.UserService;
+
 import java.security.Principal;
 
 @Controller
@@ -17,8 +18,8 @@ public class UserController {
 
     @GetMapping("/")
     public String userInfo(Principal principal, Model model) {
-        User user = userService.getUserByName(principal.getName());
-        model.addAttribute("user", user);
+        User userByPrincipalName = userService.getUserByUsername(principal.getName());
+        model.addAttribute("userByPrincipalName", userByPrincipalName);
         return "userPage";
     }
 }
