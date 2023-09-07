@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<User> findAllUser() {
+    public List<User> findAllUsers() {
         return userRepository.findAll();
     }
 
@@ -51,20 +51,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Transactional
     @Override
-    public void add(User user) {
+    public void addUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
     @Transactional
     @Override
-    public void deleteById(Long id) {
+    public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
 
     @Transactional
     @Override
-    public void update(User userUpdated) {
+    public void updateUser(User userUpdated) {
         userUpdated.setPassword(passwordEncoder.encode(userUpdated.getPassword()));
 
 

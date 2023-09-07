@@ -15,24 +15,27 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+    private UserService userService;
+    private RoleService roleService;
 
     @Autowired
-    private UserService userService;
-    @Autowired
-    private RoleService roleService;
+    public AdminController(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     @GetMapping("/")
     public String getAllUsers(Model model, Principal principal) {
         model.addAttribute("userByPrincipalName", userService.getUserByUsername(principal.getName()));
-        model.addAttribute("users", userService.findAllUser());
-        model.addAttribute("roles", roleService.findAll());
+        model.addAttribute("users", userService.findAllUsers());
+        model.addAttribute("roles", roleService.findAllRoles());
         return "getAllUsers";
     }
 
     @GetMapping("/add")
     public String newUser(@ModelAttribute("user") User user, Principal principal, Model model) {
         User userByName = userService.getUserByUsername(principal.getName());
-        List<Role> roles = roleService.findAll();
+        List<Role> roles = roleService.findAllRoles();
         model.addAttribute("userByPrincipalName", userByName);
         model.addAttribute("roles", roles);
         return "addUser";
@@ -40,18 +43,18 @@ public class AdminController {
 
     @PostMapping("/")
     public String addUser(@ModelAttribute("user") User user) {
-        userService.add(user);
+        userService.addUser(user);
         return "redirect:/admin/";
     }
 
     @PatchMapping("/edit/{id}")
     public String editUser(@ModelAttribute("user") User user) {
-        userService.update(user);
+        userService.updateUser(user);
         return "redirect:/admin/";
     }
     @DeleteMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
-        userService.deleteById(id);
+        userService.deleteUserById(id);
         return "redirect:/admin/";
     }
 

@@ -12,12 +12,14 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-
-    @Autowired
     private UserService userService;
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/")
-    public String userInfo(Principal principal, Model model) {
+    public String getUserInfo(Principal principal, Model model) {
         User userByPrincipalName = userService.getUserByUsername(principal.getName());
         model.addAttribute("userByPrincipalName", userByPrincipalName);
         return "userPage";
