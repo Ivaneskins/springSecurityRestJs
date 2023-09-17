@@ -50,6 +50,7 @@ public class AdminController {
     @PatchMapping("/edit/{id}")
     public String editUser(@ModelAttribute("user") User user) {
         userService.updateUser(user);
+        System.out.println("roles = " + user.getRoles());
         return "redirect:/admin/";
     }
     @DeleteMapping("/delete/{id}")
