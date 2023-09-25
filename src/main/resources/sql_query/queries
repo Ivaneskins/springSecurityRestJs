@@ -1,0 +1,17 @@
+INSERT into users(id, username, password, email, age, lastname) VALUES('1', 'super', '$2a$12$MD7J.0MuRwZUoa5t957khOR7niv3.gZSd17/VyLeAVVwcWFuObzgK', 'super@user.ru', '40', 'vas');
+INSERT into users(id, username, password, email, age, lastname) VALUES('2', 'admin', '$2a$12$MD7J.0MuRwZUoa5t957khOR7niv3.gZSd17/VyLeAVVwcWFuObzgK', 'admin@user.ru', '40', 'vas');
+INSERT into users(id, username, password, email, age, lastname) VALUES('3', 'user', '$2a$12$MD7J.0MuRwZUoa5t957khOR7niv3.gZSd17/VyLeAVVwcWFuObzgK', 'user@user.ru', '40', 'vas');
+INSERT into users(id, username, password, email, age, lastname) VALUES('4', 'ivan', '$2a$12$MD7J.0MuRwZUoa5t957khOR7niv3.gZSd17/VyLeAVVwcWFuObzgK', 'ivan@user.ru', '40', 'vas');
+INSERT into users(id, username, password, email, age, lastname) VALUES('5', 'ivanes', '$2a$12$MD7J.0MuRwZUoa5t957khOR7niv3.gZSd17/VyLeAVVwcWFuObzgK', 'ivanes@user.ru', '40', 'vas');
+
+
+
+insert into users_roles(user_id, role_id) VALUES('1', '2');
+insert into users_roles(user_id, role_id) VALUES('2', '2');
+insert into users_roles(user_id, role_id) VALUES('3', '2');
+insert into users_roles(user_id, role_id) VALUES('4', '2');
+insert into users_roles(user_id, role_id) VALUES('5', '2');
+
+
+
+

@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.entities.Role;
 import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
@@ -31,6 +32,13 @@ public class RestAdminController {
         return user;
     }
 
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable("id") Long id) {
+
+        System.out.println("get user happened id = " + id);
+        return userService.findUserById(id);
+    }
+
     @PatchMapping("/edit/")
     public String editUser(@RequestBody User user) {
         Optional<String> optValueUpdateUser = Optional.ofNullable(user.getUsername());
@@ -46,8 +54,13 @@ public class RestAdminController {
         return "Not such user in DB";
     }
 
-    @DeleteMapping("/delete/")
-    public String deleteUser(@RequestBody long id) {
+    @GetMapping("/roles")
+    public List<Role> getRoles() {
+        return roleService.findAllRoles();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") long id) {
         if (userService.findUserById(id) != null) {
             userService.deleteUserById(id);
             return String.format("User with id = %s was deleted", id);
