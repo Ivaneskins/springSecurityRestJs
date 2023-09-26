@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Title</title>
+    <title>AllUsers</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
@@ -58,155 +58,68 @@
                             <th>Delete</th>
                         </tr>
                         </thead>
-                        <tbody>
-                            <tr th:each="user : ${users}">
-                                <td th:text="${user.getId()}" />
-                                <td th:text="${user.getUsername()}" />
-                                <td th:text="${user.getLastname()}" />
-                                <td th:text="${user.getAge()}" />
-                                <td th:text="${user.getEmail()}" />
-                                <td th:text="${user.toStringRoles().replaceAll('ROLE_','')}"/>
-                                <td>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCentered"
-                                            th:data-target="'#modal-'+${userStat.index}">
-                                        Edit
-                                    </button>
+                        <tbody id="tbody">
 
-                         <!--   Start modal edit-->
-                                    <div class="modal" id="exampleModalCentered" tabindex="-1" role="form" aria-labelledby="exampleModalCenteredLabel"
-                                         aria-hidden="true" th:id="|modal-${userStat.index}|" th:object="${user}">
-
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalCenteredLabel">Edit user</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">×</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form th:method="PATCH" th:action="@{/admin/edit/{id}(id=${user.getId()})}" th:object="${user}">
-                                                        <div class="form-group text-center">
-                                                            <label class="font-weight-bold" for="formGroupExampleInput">Id</label>
-                                                            <input type="text" th:value="*{id}" disabled class="form-control" id="formGroupExampleInput">
-                                                        </div>
-                                                        <div class="form-group text-center">
-                                                            <label class="font-weight-bold" for="formGroupExampleInput1">First name</label>
-                                                            <input type="text" th:value="*{username}" class="form-control" id="formGroupExampleInput1" name="username">
-                                                        </div>
-                                                        <div class="form-group text-center">
-                                                            <label class="font-weight-bold" for="formGroupExampleInput2">Last name</label>
-                                                            <input type="text" th:value="*{lastname}" class="form-control"  id="formGroupExampleInput2" name="lastname">
-                                                        </div>
-
-                                                        <div class="form-group text-center">
-                                                            <label class="font-weight-bold" for="formGroupExampleInput3">Age</label>
-                                                            <input type="text" th:value="*{age}" class="form-control"  id="formGroupExampleInput3" name="age">
-                                                        </div>
-
-                                                        <div class="form-group text-center">
-                                                            <label class="font-weight-bold" for="formGroupExampleInput4">Email</label>
-                                                            <input type="email" th:value="*{email}" class="form-control"  id="formGroupExampleInput4" name="email">
-                                                        </div>
-
-                                                        <div class="form-group text-center">
-                                                            <label class="font-weight-bold" for="deleteModalPass">Password</label>
-                                                            <input type="password" th:value="*{password}" class="form-control"  id="deleteModalPass" name="password">
-                                                        </div>
-
-                                                        <div class="form-group text-center">
-                                                            <label class="font-weight-bold" for="formGroupExampleInput6">Role</label><br/>
-                                                            <select name="roles" class="form-select w-100 p-2" multiple aria-label="multiple select example" id="formGroupExampleInput6">
-                                                                <option th:each="role : ${roles}" th:value="${role.getId()}"
-                                                                        th:text="${role.getName().replaceAll('ROLE_','')}">role
-                                                                </option>
-
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            <input type="submit" class="btn btn-primary" value="Edit"/>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--End edit modal-->
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"
-                                            th:data-target="'#deleteModal-'+${userStat.index}">
-                                        Delete
-                                    </button>
-
-<!--                                    Start modal DELETE-->
-
-                                    <div class="modal" id="deleteModal" tabindex="-1" role="form" aria-labelledby="deleteModalLabel"
-                                         aria-hidden="true" th:id="|deleteModal-${userStat.index}|" th:object="${users}">
-
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteModalLabel">Delete user</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">×</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form th:method="DELETE" th:action="@{/admin/delete/{id}(id=${user.getId()})}"
-                                                          th:object="${user}">
-                                                        <div class="form-group text-center">
-                                                            <label class="font-weight-bold" for="deleteModalId">Id</label>
-                                                            <input type="text" th:value="*{id}" disabled class="form-control" id="deleteModalId">
-                                                        </div>
-                                                        <div class="form-group text-center">
-                                                            <label class="font-weight-bold" for="deleteModalUsername">First name</label>
-                                                            <input type="text" th:value="*{username}" disabled class="form-control" id="deleteModalUsername" name="username">
-                                                        </div>
-                                                        <div class="form-group text-center">
-                                                            <label class="font-weight-bold" for="deleteModalLastName">Last name</label>
-                                                            <input type="text" th:value="*{lastname}" disabled class="form-control"  id="deleteModalLastName" name="lastname">
-                                                        </div>
-
-                                                        <div class="form-group text-center">
-                                                            <label class="font-weight-bold" for="deleteModalAge">Age</label>
-                                                            <input type="text" th:value="*{age}" disabled class="form-control"  id="deleteModalAge" name="age">
-                                                        </div>
-
-                                                        <div class="form-group text-center">
-                                                            <label class="font-weight-bold" for="deleteModalEmail">Email</label>
-                                                            <input type="email" th:value="*{email}" disabled class="form-control"  id="deleteModalEmail" name="email">
-                                                        </div>
-
-                                                        <div class="form-group text-center">
-                                                            <label class="font-weight-bold" for="deleteModalRole">Role</label><br/>
-                                                            <select name="roles" disabled class="form-select w-100 p-2" multiple aria-label="multiple select example" id="deleteModalRole">
-                                                                <option th:each="role : ${roles}" th:value="${role.getId()}"
-                                                                        th:text="${role.getName().replaceAll('ROLE_','')}">role
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            <input type="submit" class="btn btn-danger" value="Delete"/>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+                                 <!--   Start modal edit-->
+                                 <div class="modal" id="editModal" tabindex="-1" role="form" aria-labelledby="exampleModalCenteredLabel"
+                                 aria-hidden="true">
 
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalCenteredLabel">Edit user</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="formEdit">
+                                                
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End edit modal-->
+
+                <!--      Start modal DELETE-->
+
+                            <div class="modal" id="deleteModal" tabindex="-1" role="form" aria-labelledby="deleteModalLabel"
+                            aria-hidden="true">
+
+                           <div class="modal-dialog modal-dialog-centered" role="document">
+                               <div class="modal-content">
+                                   <div class="modal-header">
+                                       <h5 class="modal-title" id="deleteModalLabel">Delete user</h5>
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                           <span aria-hidden="true">×</span>
+                                       </button>
+                                   </div>
+                                   <div class="modal-body" >
+                                       <form id="formDelete">
+                                           
+                                       </form>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <!-- End delete modal -->  
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>        
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <script src="../static/fetchRestRequests.js" th:src="@{/fetchRestRequests.js}"></script>
+        <script src="../static/createUsersTable.js" th:src="@{/createUsersTable.js}"></script>
+        <script src="../static/editModalUser.js" th:src="@{/editModalUser.js}"></script>
+        <script src="../static/deleteModalUser.js" th:src="@{/deleteModalUser.js}"></script>
+        <script src="../static/packOfFunctions.js" th:src="@{/packOfFunctions.js}"></script>
+        
     </body>
 </html>

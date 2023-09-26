@@ -38,7 +38,7 @@ public class AdminController {
         List<Role> roles = roleService.findAllRoles();
         model.addAttribute("userByPrincipalName", userByName);
         model.addAttribute("roles", roles);
-        return "addUser";
+        return "addUserPage";
     }
 
     @PostMapping("/")

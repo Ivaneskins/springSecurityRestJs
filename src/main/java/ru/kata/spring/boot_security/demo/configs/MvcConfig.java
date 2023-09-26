@@ -15,9 +15,17 @@ public class MvcConfig implements WebMvcConfigurer {
 //    Настройка, позволяющая обойти ошибку CORS при обращении к localhost:8080 из других app
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/user/rest/**").allowedMethods("http://localhost:8080/")
+
+        registry.addMapping("/admin/**").allowedMethods("http://localhost:8080/")
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE").allowedHeaders("*");
-        registry.addMapping("/admin/rest/**").allowedMethods("http://localhost:8080/")
+        registry.addMapping("/user/**").allowedMethods("http://localhost:8080/")
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE").allowedHeaders("*");
+
+//        registry.addMapping("/user/rest/**").allowedMethods("http://localhost:8080/")
+//                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE").allowedHeaders("*");
+//        registry.addMapping("/admin/rest/**").allowedMethods("http://localhost:8080/")
+//                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE").allowedHeaders("*");
+
+
     }
 }
