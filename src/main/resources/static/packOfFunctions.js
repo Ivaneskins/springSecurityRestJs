@@ -34,4 +34,24 @@ function cleanNewUserForm() {
     let password = document.getElementById('password').value = '';
 }
 
+let usersTableContainer = document.getElementById('usersTableContainer');
+let addUserContainer = document.getElementById("addUserContainer");
+let newUserBtn = document.getElementById('newUserBtn');
+let usersTableBtn = document.getElementById('usersTableBtn');
+
+function hideUserTableAndShowAddUser() {
+    usersTableContainer.classList.add("d-none");
+    newUserBtn.classList.add("active");
+    usersTableBtn.classList.remove('active');
+    addUserContainer.classList.remove('d-none');
+}
+
+function hideAddUserAndShowUserTable() {
+    usersTableBtn.classList.add('active');
+    newUserBtn.classList.remove('active');
+    usersTableContainer.classList.remove('d-none');
+    addUserContainer.classList.add('d-none');
+    getAllUsers();
+}
+
 

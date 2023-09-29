@@ -21,96 +21,165 @@
         </div>
 
 <!--    main-->
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-2">
-                    <nav class="nav flex-column nav-pills">
-                        <a class="nav-link active " href="#">Admin</a>
-                        <a class="nav-link" href="/admin/admin-info/">User</a>
-                    </nav>
-                </div>
-
-                <div class="col-10 bg-light">
-                    <h2> Admin panel </h2> <br />
-
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Users table</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/add">New User</a>
-                        </li>
-                    </ul>
-                    <br/>
-
-                    <h6> &nbsp;&nbsp;&nbsp;&nbsp;All users </h6>
-
-                    <table class="table table-striped bg-white">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Age</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                        </thead>
-                        <tbody id="tbody">
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <nav class="nav flex-column nav-pills">
+                <a class="nav-link active " href="#">Admin</a>
+                <a class="nav-link" href="/admin/admin-info/">User</a>
+            </nav>
         </div>
-                                 <!--   Start modal edit-->
-                                 <div class="modal" id="editModal" tabindex="-1" role="form" aria-labelledby="exampleModalCenteredLabel"
-                                 aria-hidden="true">
 
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalCenteredLabel">Edit user</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form id="formEdit">
-                                                
-                                            </form>
-                                        </div>
-                                    </div>
+        <div class="col-10 bg-light">
+            <h2> Admin panel </h2> <br />
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <!-- <a class="nav-link active" href="#">Users table</a> -->
+                    <button id="usersTableBtn" onclick="hideAddUserAndShowUserTable()" class="nav-link active" href="#">Users table</button>
+                </li>
+                <li class="nav-item">
+                    <!-- <a class="nav-link" href="/admin/add">New User</a> -->
+                    <button id="newUserBtn" onclick="hideUserTableAndShowAddUser()" class="nav-link">New User</button>
+                    <!-- <a class="nav-link">New User</a> -->
+                </li>
+            </ul>
+            <br/>
+
+
+            <div class="container" id="usersTableContainer">
+                <table class="table table-striped bg-white">
+                    <h6> &nbsp;&nbsp;&nbsp;&nbsp;All users </h6>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="tbody">
+
+                    </tbody>
+                </table>
+            </div>
+
+
+
+            <!-- add user form -->
+            <div class="container d-none" id="addUserContainer">
+                <h6> &nbsp;&nbsp;&nbsp;&nbsp;Add new user </h6>
+                <div class="row bg-white">
+                    <div class="col-4">
+                    </div>
+                    <div class="col-4">
+                        <form id="newUserForm">
+                            <div class="form-group text-center">
+                                <label class="font-weight-bold" for="userName">First name</label>
+                                <input type="text" class="form-control" id="userName" placeholder="First name" name="username">
+                            </div>
+                            <div class="form-group text-center">
+                                <label class="font-weight-bold" for="lastName">Last name</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Last name" name="lastname">
+                            </div>
+
+                            <div class="form-group text-center">
+                                <label class="font-weight-bold" for="age">Age</label>
+                                <input type="text" class="form-control" id="age" placeholder="Age" name="age">
+                            </div>
+
+                            <div class="form-group text-center">
+                                <label class="font-weight-bold" for="email">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="Email" name="email">
+                            </div>
+
+                            <div class="form-group text-center">
+                                <label class="font-weight-bold" for="password">Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                            </div>
+
+                            <div class="form-group text-center">
+                                <label class="font-weight-bold" for="role">Role</label>
+                                <select multiple class="form-control" id="role" name="roles" size="2">
+
+                                </select>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-10 offset-sm-2">
+                                    <button type="submit" class="btn btn-success" id="addNewUser">Add new user</button>
                                 </div>
                             </div>
-                            <!--End edit modal-->
+                        </form>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                </div>
+            </div>
 
-                <!--      Start modal DELETE-->
 
-                            <div class="modal" id="deleteModal" tabindex="-1" role="form" aria-labelledby="deleteModalLabel"
-                            aria-hidden="true">
 
-                           <div class="modal-dialog modal-dialog-centered" role="document">
-                               <div class="modal-content">
-                                   <div class="modal-header">
-                                       <h5 class="modal-title" id="deleteModalLabel">Delete user</h5>
-                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                           <span aria-hidden="true">×</span>
-                                       </button>
-                                   </div>
-                                   <div class="modal-body" >
-                                       <form id="formDelete">
-                                           
-                                       </form>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                       <!-- End delete modal -->  
-        
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>        
+
+            <!-- end add user form -->
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!--   Start modal edit-->
+<div class="modal" id="editModal" tabindex="-1" role="form" aria-labelledby="exampleModalCenteredLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenteredLabel">Edit user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formEdit">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End edit modal-->
+
+<!--      Start modal DELETE-->
+
+<div class="modal" id="deleteModal" tabindex="-1" role="form" aria-labelledby="deleteModalLabel"
+     aria-hidden="true" >
+
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body" >
+                <form id="formDelete">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End delete modal -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -120,6 +189,7 @@
         <script src="../static/editModalUser.js" th:src="@{/editModalUser.js}"></script>
         <script src="../static/deleteModalUser.js" th:src="@{/deleteModalUser.js}"></script>
         <script src="../static/packOfFunctions.js" th:src="@{/packOfFunctions.js}"></script>
+        <script src="../static/addNewUser.js" th:src="@{/addNewUser.js}"></script>
         
     </body>
 </html>
