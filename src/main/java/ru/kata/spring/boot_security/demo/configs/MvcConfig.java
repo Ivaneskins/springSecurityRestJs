@@ -20,12 +20,5 @@ public class MvcConfig implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE").allowedHeaders("*");
         registry.addMapping("/user/**").allowedMethods("http://localhost:8080/")
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE").allowedHeaders("*");
-
-//        registry.addMapping("/user/rest/**").allowedMethods("http://localhost:8080/")
-//                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE").allowedHeaders("*");
-//        registry.addMapping("/admin/rest/**").allowedMethods("http://localhost:8080/")
-//                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE").allowedHeaders("*");
-
-
     }
 }

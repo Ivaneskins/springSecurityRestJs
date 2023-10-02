@@ -1,23 +1,3 @@
-// const dataPlaceholder = document.getElementById('data-placeholder');
-//
-//
-// document.addEventListener("DOMContentLoaded", getData);
-//
-// function getData() {
-//     fetch('/user/rest/')
-//         .then(response => response.json())
-//         .then(data => {
-//             const name = data.username;
-//             const html = "Hello, " + name ;
-//             dataPlaceholder.innerHTML = html;
-//         })
-//         .catch(error => {
-//             console.error('Произошла ошибка: ', error);
-//         })
-// }
-//
-//
-
 const dataPlaceholder = document.getElementById('data-placeholder');
 
 const id = document.getElementById('id');

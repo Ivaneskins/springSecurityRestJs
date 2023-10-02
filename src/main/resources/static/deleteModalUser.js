@@ -1,6 +1,5 @@
 
 // fill delete modal with user data
-
 async function getUserOnDeleteForm(userId) {  
     console.log('Вызвана функция getUserOnDeleteForm');
     
@@ -12,7 +11,6 @@ async function getUserOnDeleteForm(userId) {
             fillDeleteModalForm(userId);
 
             let modal = new bootstrap.Modal(document.querySelector('#deleteModal'));
-            // let modal = new bootstrap.Modal();
             modal.show();            
             
             let deleteModalId =document.getElementById('deleteModalId').value = user.id; 
