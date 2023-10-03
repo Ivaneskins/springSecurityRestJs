@@ -21,12 +21,12 @@ function getData() {
             age.innerHTML = data.age;
             email.innerHTML = data.email;
             roles.innerHTML = data.roles[0].name.replace('ROLE_', '');
-            setTimeout(getData, 2000);
         })
         .catch(error => {
             console.error('Произошла ошибка: ', error);
         })
 }
+getData();
 
 
 

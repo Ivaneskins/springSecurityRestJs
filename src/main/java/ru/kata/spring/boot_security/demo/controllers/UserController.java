@@ -19,7 +19,7 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public String getUserInfo(Principal principal, Model model) {
+    public String getUserInfoPage(Principal principal, Model model) {
         User userByPrincipalName = userService.getUserByUsername(principal.getName());
         model.addAttribute("userByPrincipalName", userByPrincipalName);
         return "userPage";

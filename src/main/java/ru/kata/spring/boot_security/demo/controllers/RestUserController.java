@@ -23,7 +23,6 @@ public class RestUserController {
 
     @GetMapping(value = "/")
     public User getUserInfo(Principal principal) {
-        System.out.println(principal.getName());
         return userService.getUserByUsername(principal.getName());
     }
 }
